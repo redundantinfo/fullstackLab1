@@ -24,7 +24,7 @@ async function fetchAlbums() {
       throw new Error('Could not fetch album data');
     }
   } catch (err) {
-    console.log('frontend /api/albums route is kaputt')
+    console.log('frontend /albums GET route is kaputt')
     console.log(err);
   }
 }
@@ -43,7 +43,7 @@ async function addAlbum(album) {
       throw new Error('Could not add album');
     }
   } catch (err) {
-    console.log('frontend /api/albums route is kaputt')
+    console.log('frontend /albums POST route is kaputt')
     console.log(err);
   }
 }
@@ -60,7 +60,6 @@ form.addEventListener('submit', async (e) => {
     const addAlbum = await addAlbum(album);
     console.log(addAlbum);
   } catch (err) {
-    console.log('frontend /api/albums route is kaputt')
     console.log(err);
   }
 });

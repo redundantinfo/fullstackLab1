@@ -27,6 +27,8 @@ app.get('/albums', async (req, res) => {
   res.json(albums);
 });
 
+// TODO: get album by title
+
 // add new album
 app.post('/albums', async (req, res) => {
   if (!req.body.title || !req.body.artist || !req.body.year) return res.status(400).send('Missing required fields');
@@ -41,5 +43,11 @@ app.post('/albums', async (req, res) => {
     res.status(400).send(err.message);
   }
 });
+
+// TODO: update an album
+
+// TODO: delete an album
+
+// FRONTEND TODO: populate index file with API data with a row for each album, each row has buttons for update, delete and show details
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
