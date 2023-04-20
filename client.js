@@ -1,5 +1,6 @@
 const addAlbumForm = document.querySelector('#add-album-form');
 
+
 const fetchStartPage = async () => {
   try {
     const response = await fetch('/', {
@@ -153,7 +154,6 @@ const renderAlbums = async () => {
   detailsBtns.forEach((btn) => {
     btn.addEventListener('click', async (e) => {
       const album = await fetchAlbum(e.target.dataset.id);
-      console.log(album);
     });
   });
 
@@ -173,6 +173,7 @@ const renderAlbums = async () => {
       };
       const album = await updateAlbum(albumId, updatedAlbum);
       console.log(album);
+      location.reload();
     });
   });
 
@@ -188,6 +189,45 @@ const renderAlbums = async () => {
 
 // when the page loads, render all albums
 window.addEventListener('load', renderAlbums);
+
+document.addEventListener('DOMContentLoaded', () => { 
+  const searchResultContainer = document.querySelector('#search-result-container');
+  const searchForm = document.querySelector('#search-form');
+  // add an event listener to the form for when it is submitted
+  searchForm.addEventListener('submit', async (e) => {
+    e.preventDefault(); // prevent the form from submitting
+  
+    // get the value of the input field
+    const title = searchForm.name.value;
+  
+    // call the fetchAlbum function to fetch the album data
+    const album = await fetchAlbum(title);
+  
+    // clear any previous results from the container
+    searchResultContainer.innerHTML = '';
+  
+    // check if an album was found
+    if (album === null) {
+      searchResultContainer.innerHTML = '<p>No matching album found.</p>';
+    } else {
+      // create a new div element to display the album data
+      const div = document.createElement('div');
+      div.classList.add('card');
+      div.innerHTML = `
+        <div class="card-body">
+          <h3 class="card-title">${album.title}</h3>
+          <p class="card-text">${album.artist}</p>
+          <p class="card-text">${album.year}</p>
+        </div>
+      `;
+  
+      // add the new div to the container
+      searchResultContainer.appendChild(div);
+    }
+  });
+});
+// event listener for finding an album by title
+
 
 // submit to add new album
 addAlbumForm.addEventListener('submit', async (e) => {
