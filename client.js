@@ -190,12 +190,13 @@ const renderAlbums = async () => {
 // when the page loads, render all albums
 window.addEventListener('load', renderAlbums);
 
+// event listener for finding an album by title, wrapped it in a DOMContentLoaded event listener to make sure the DOM is loaded before the event listener is added
 document.addEventListener('DOMContentLoaded', () => { 
   const searchResultContainer = document.querySelector('#search-result-container');
   const searchForm = document.querySelector('#search-form');
   // add an event listener to the form for when it is submitted
   searchForm.addEventListener('submit', async (e) => {
-    e.preventDefault(); // prevent the form from submitting
+    e.preventDefault();
   
     // get the value of the input field
     const title = searchForm.name.value;
@@ -226,8 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-// event listener for finding an album by title
-
 
 // submit to add new album
 addAlbumForm.addEventListener('submit', async (e) => {
