@@ -1,6 +1,5 @@
 const addAlbumForm = document.querySelector('#add-album-form');
 
-
 const fetchStartPage = async () => {
   try {
     const response = await fetch('/', {
@@ -190,7 +189,7 @@ const renderAlbums = async () => {
 // when the page loads, render all albums
 window.addEventListener('load', renderAlbums);
 
-// event listener for finding an album by title, wrapped it in a DOMContentLoaded event listener to make sure the DOM is loaded before the event listener is added
+// event listener for finding an album by title, I wrapped it in a DOMContentLoaded event listener to avoid issues
 document.addEventListener('DOMContentLoaded', () => { 
   const searchResultContainer = document.querySelector('#search-result-container');
   const searchForm = document.querySelector('#search-form');
@@ -211,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (album === null) {
       searchResultContainer.innerHTML = '<p>No matching album found.</p>';
     } else {
-      // create a new div element to display the album data
+      // display the album data
       const div = document.createElement('div');
       div.classList.add('card');
       div.innerHTML = `
@@ -221,8 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="card-text">${album.year}</p>
         </div>
       `;
-  
-      // add the new div to the container
       searchResultContainer.appendChild(div);
     }
   });

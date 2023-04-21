@@ -27,7 +27,6 @@ app.get('/', (req, res) => {
 app.get('/api/albums', async (req, res) => {
   const albums = await Album.find();
   if (!albums) return res.status(404).send('No albums found');
-  // TODO: add else statement that renders albums to page using renderAlbums() function from renderAlbums.js
   res.json(albums);
 });
 
@@ -50,14 +49,7 @@ app.post('/api/albums', async (req, res) => {
   // look for duplicate album
   const findDuplicate = await Album.findOne({ title: req.body.title, artist: req.body.artist, year: req.body.year });
   if (findDuplicate) return res.status(409).send('Conflict: Album already exists');
-  /* 
-  REGARDING THE FOLLOWING CODE AND THE LAB SPECIFICATIONS:
-  I know that the lab specifications require me to manually add album IDs. 
-  I don't like that solution and would rather let the database handle the ID assignments. 
-  If I ever want to extend the database, I would not want to manually assign the ID every time.
-  Assigning IDs manually could cause issues with a large enough database. 
-  Where you would need to keep track of the highest ID number and assign the next ID number accordingly.
-  */
+
   try {
     const newAlbum = await Album.create({
       title: req.body.title,
